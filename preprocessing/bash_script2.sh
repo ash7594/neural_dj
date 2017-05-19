@@ -12,7 +12,7 @@ u2="aws s3 cp $dfn/training_transitions s3://podcastsdatabase/dataset/"
 g="python get_equal_len_training_data.py"
 count=1
 
-for i in $(seq 1 1 $num_folders)
+for i in $(seq 168 $num_folders)
 do
 	echo $i
 	l="$(aws s3 ls podcastsdatabase/dataset/"$i"/ | awk -F" " '{$1=$2=$3=""; print $0}' | cut -c4-)"
@@ -32,6 +32,7 @@ do
 		elif [[ $item == "transition$i.mp3" ]]; then
 			c1="$d$i/$item $dfn/music.mp3"
 		else
+			continue
 			c1="$d$i/$item $dfn/something.mp3"
 		fi
 		
